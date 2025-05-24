@@ -1,0 +1,29 @@
+{
+    "datapacks": [
+        {
+            "country": "Japan",
+            "operator": "Moshi Moshi",
+            "data": "1 GB",
+            "validity": "7 Days",
+            "price": "£3.50"
+        },
+        {
+            "country": "Turkey",
+            "operator": "Merhaba",
+            "data": "20 GB",
+            "validity": "30 Days",
+            "price": "£20.50"
+        }
+    ],
+    "simorders":[
+        {
+            "package_id": "merhaba-7days-1gb",
+            "quantity": 6
+        },
+        {
+            "package_id": "kallur-digital-7days-1gb",
+            "quantity": 3
+        }
+        
+    ]
+}
