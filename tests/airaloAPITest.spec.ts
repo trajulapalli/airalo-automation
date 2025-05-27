@@ -49,16 +49,21 @@ data.simorders.forEach((orderData: Record<string, any>) => {
         const responseBody = await response.json();
         expect(responseBody.data.package_id).toBe(orderData.package_id);
         expect(responseBody.data.sims.length).toBe(orderData.quantity)
-        const order = await apiContext.get('/v2/orders/',
+        const order = await apiContext.get('/v2/sims/',
           {headers: {
               Authorization: 'Bearer '+token
-            },}
+            },
+          params: {
+            include: 'order'
+          }}
         )
         expect(order.status()).toBe(200)
         const orderResponse = await order.json();
         const ordersData = orderResponse.data;
-        const containsPackage = ordersData.some((sim: any) => sim.package_id === orderData.package_id && sim.quantity === orderData.quantity);
-        expect(containsPackage).toBeTruthy(); 
+        const filteredData = ordersData.filter(item=>item.simable && item.simable.id === responseBody.data.id);
+        const isPackageIdPresent = filteredData.every(item=>item.simable && item.simable.package_id===orderData.package_id)
+        expect(filteredData.length).toBe(orderData.quantity);
+        expect(isPackageIdPresent).toBeTruthy();
     });
 });
     
